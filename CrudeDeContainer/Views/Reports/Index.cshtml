@@ -1,0 +1,60 @@
+﻿@model List<Report>
+
+    <h1>Relatório de Movimentações por Cliente</h1>
+<div>
+    <input type="text" id="searchInput" onkeyup="searchTable()" placeholder="Pesquisar Cliente">
+</div>
+<table class="table" id="reportTable">
+    <thead>
+        <tr>
+            <th>Cliente</th>
+            <th>Embarque</th>
+            <th>Descarga</th>
+            <th>Gate In</th>
+            <th>Gate Out</th>
+            <th>Reposicionamento</th>
+            <th>Pesagem</th>
+            <th>Scanner</th>
+            <th>Importações</th>
+            <th>Exportações</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach(var cliente in Model)
+        {
+            <tr>
+                <td>@cliente.Cliente</td>
+                <td>@cliente.Embarque</td>
+                <td>@cliente.Descarga</td>
+                <td>@cliente.GateIn</td>
+                <td>@cliente.GateOut</td>
+                <td>@cliente.Reposicionamento</td>
+                <td>@cliente.Pesagem</td>
+                <td>@cliente.Scanner</td>
+                <td>@cliente.Importações</td>
+                <td>@cliente.Exportações</td>
+            </tr>
+        }
+    </tbody>
+</table>
+<script>
+    function searchTable(){
+        var input = document.getElementById("searchInput");
+        var filter = input.value.toLowerCase();
+        var table = document.getElementById("reportTable");
+        var rows = table.getElementsByTagName("tr");
+
+        for(var i = 0; i < rows.length; i++){
+            var clienteCell = rows[i].getElementsByTagName("td")[0];
+            if(clienteCell){
+                var cliente = clienteCell.textContent.toLowerCase();
+                if(cliente.includes(filter)){
+                    rows[i].style.display = "";
+                }
+                else{
+                    rows[i].style.display="none";
+                }
+            }
+        }
+    }
+</script>
